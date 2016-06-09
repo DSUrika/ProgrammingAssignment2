@@ -1,43 +1,49 @@
-## Caching the Inverse of a Matrix:
-## makeCacheMatrix: This function creates a special "matrix" object that can cache its inverse.
-## which is really a list containing a function to
-## 1.set the value of the vector
-## 2.get the value of the vector
-## 3.set the value of the mean
-## 4.get the value of the mean
-
+## Assignment Caching invmatrixerse of a Matrix:
+## makeCacheMatrix: Function that creates a special "matrix" object, which cache its invmatrixerse.
+## 1.set the value of vector
+## 2.get the value of vector
+## 3.set the value of mean
+## 4.get the value of mean
 
 makeCacheMatrix <- function(x = matrix()) {
-  inv <- NULL
+  invmatrix <- NULL
   set <- function(y) {
     x <<- y
-    inv <<- NULL
+    invmatrix <<- NULL
   }
   get <- function() x
-  setInverse <- function(inverse) inv <<- inverse
-  getInverse <- function() inv
+  setinvmatrixerse <- function(invmatrixerse) invmatrix <<- invmatrixerse
+  getinvmatrixerse <- function() invmatrix
   list(set = set,
        get = get,
-       setInverse = setInverse,
-       getInverse = getInverse)
+       setinvmatrixerse = setinvmatrixerse,
+       getinvmatrixerse = getinvmatrixerse)
 }
-
-
 
 ## cacheSolve: 
-## This function computes the inverse of the special "matrix" returned by makeCacheMatrix above. 
-## If the inverse has already been calculated (and the matrix has not changed), 
-## then the cacheSolve should retrieve the inverse from the cache.
+## This function computes the invmatrixerse of the special "matrix" returned by above makeCacheMatrix . 
+## If invmatrixerse has already been calculated (and the matrix has not changed), cacheSolve should retrieve the invmatrixerse from the cache.
 
 cacheSolve <- function(x, ...) {
-  ## Return a matrix that is the inverse of 'x'
-  inv <- x$getInverse()
-  if (!is.null(inv)) {
+  ## Return a matrix that is the invmatrixerse of 'x'
+  invmatrix <- x$getinvmatrixerse()
+  if (!is.null(invmatrix)) {
     message("getting cached data")
-    return(inv)
+    return(invmatrix)
   }
   mat <- x$get()
-  inv <- solve(mat, ...)
-  x$setInverse(inv)
-  inv
+  invmatrix <- solve(mat, ...)
+  x$setinvmatrixerse(invmatrix)
+  invmatrix
 }
+
+# Output of this function as below
+# > matrix <- makeCacheMatrix(matrix(2:5, 2, 2))
+# > matrix$get()
+#        [,1] [,2]
+#  [1,]    2    4
+#  [2,]    3    5
+# > cacheSolve(matrix)
+#       [,1] [,2]
+#  [1,] -2.5    2
+#  [2,]  1.5   -1
